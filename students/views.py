@@ -54,7 +54,8 @@ from students.models import Student
 
 
 def index(request):
-    """Функциональный контроллер"""
+    """Контроллер (представление) формирует главную страницу сайта, отображая на ней
+    имя, фамилию и курс обучения конкретного студента с ID, равным 1."""
     student = Student.objects.get(id=1)
     context = {
         'student_name': f"{student.first_name} {student.last_name}",
@@ -63,9 +64,22 @@ def index(request):
     return render(request, 'students/index.html', context=context)
 
 
+
 def student_detail(request):
+    """Контроллер (представление) находит в базе данных одного конкретного студента
+    с ID, равным 1, и отображает персональную страницу с его детальной информацией."""
     student = Student.objects.get(id=1)
     context = {
         'student': student,
     }
     return render(request, 'students/student_detail.html', context=context)
+
+
+
+def student_list(request):
+    """Контроллер запрашивает из базы данных список всех студентов и отображает их на веб-странице."""
+    students = Student.objects.all()
+    context = {
+        'students': students,
+    }
+    return render(request, 'students/student_list.html', context=context)
