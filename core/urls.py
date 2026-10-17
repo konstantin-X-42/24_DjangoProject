@@ -8,8 +8,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('students/', include('students.urls', namespace='students'))
-    path('student/', include('students.urls', namespace='students'))
+    path('students/', include('students.urls', namespace='students'))
 ]
 
 # проверяем что включен режим DEBUG (метод будет работать только во время доработки)

@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 def example_view(request):
     """Контроллер выполняет базовую задачу в веб-разработке — отображает HTML-страницу по указанному адресу"""
-    return render(request, 'app/example.html')
+    return render(request, 'app/index.html')
 
 def show_data(request):
     """Контроллер (представление) отвечает за обычный показ (отображение) HTML-страницы пользователю."""
@@ -23,7 +23,7 @@ def show_item(request, item_id):
 
 
 # - - - - - - контроллер обрабатывает шаблон - - - - - - - - - - - - - - - - - - - - - - - - -
-from django.shortcuts import render
+# from django.shortcuts import render
 
 def about(request):
     """Контроллер отвечает за отображение статической страницы «О нас» для приложения students"""
@@ -31,7 +31,7 @@ def about(request):
 
 
 
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
 def contact(request):
     """Контроллер показывать посетителю форму для отправки сообщения и обрабатывать данные, которые пользователь в эту форму вводит"""
@@ -42,3 +42,30 @@ def contact(request):
         return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
     return render(request, 'students/contact.html')
 
+
+# - - - - - - 24_DjangoProject- - - - -
+from students.models import Student
+
+
+# def index_view(request):
+#     """Контроллер показывает отображение HTML шаблона по указанному пути"""
+#     return render(request, 'students/index.html')
+
+
+
+def index(request):
+    """Функциональный контроллер"""
+    student = Student.objects.get(id=1)
+    context = {
+        'student_name': f"{student.first_name} {student.last_name}",
+        'student_year': student.get_year_display(),
+    }
+    return render(request, 'students/index.html', context=context)
+
+
+def student_detail(request):
+    student = Student.objects.get(id=1)
+    context = {
+        'student': student,
+    }
+    return render(request, 'students/student_detail.html', context=context)
